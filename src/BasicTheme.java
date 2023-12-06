@@ -16,7 +16,14 @@ public class BasicTheme extends JFrame implements Playing, Checking{
     private JButton button8;
     private JButton button9;
     private JPanel panel;
-//    private char wala = '\0';
+    private JLabel point2;
+    private JLabel point1;
+    private JLabel player1;
+    private JLabel player2;
+    private int pt1 = 0;
+    private int pt2 = 0;
+
+    //    private char wala = '\0';
     private JButton[] buttons = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
     public BasicTheme(String name1, String name2){
         this.name1 = name1;
@@ -25,6 +32,10 @@ public class BasicTheme extends JFrame implements Playing, Checking{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tic-Tac-Toe");
         setBounds(425, 110, 600, 550);
+        player1.setText(name1);
+        player2.setText(name2);
+        point1.setText(String.valueOf(pt1));
+        point2.setText(String.valueOf(pt2));
         clicking();
     }
 
@@ -36,7 +47,6 @@ public class BasicTheme extends JFrame implements Playing, Checking{
                 public void actionPerformed(ActionEvent e) {
                     JButton click = (JButton)e.getSource();
                     click.setText(String.valueOf(curr));
-                    click.setBackground(Color.PINK);
                     click.setEnabled(false);
                     if (curr == 'X') {
                         click.setBackground(Color.WHITE);
@@ -51,13 +61,27 @@ public class BasicTheme extends JFrame implements Playing, Checking{
         }
     }
 
+    public void reset(){
+        for (int i=0; i<9; i++){
+            buttons[i].setText(null);
+            buttons[i].setEnabled(true);
+            buttons[i].setBackground(Color.lightGray);
+        }
+    }
+
     @Override
     public void matchEnd() {
         if (isWinner()){
-            if (curr == 'X') //bali sha
-                JOptionPane.showConfirmDialog(null, "Game Over. Winner is " + name2 + ".");
-            if (curr == 'O')
-                JOptionPane.showConfirmDialog(null, "Game Over. Winner is " + name1 + ".");
+            if (curr == 'X') { //bali sha
+                JOptionPane.showMessageDialog(null, "Game Over. Winner is " + name2 + ".");
+                pt2++;
+                reset();
+            }
+            if (curr == 'O') {
+                JOptionPane.showMessageDialog(null, "Game Over. Winner is " + name1 + ".");
+                pt1++;
+                reset();
+            }
         } else if (isMatchDraw()){
             JOptionPane.showConfirmDialog(null, "Game Draw");
         }

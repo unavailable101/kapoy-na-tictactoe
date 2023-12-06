@@ -19,10 +19,10 @@ public class TicTacToeMenu extends JFrame {
         PLAYButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                if (!player1.getText().isBlank() && !player2.getText().isBlank()) {
                     name1 = player1.getText();
                     name2 = player2.getText();
-                } catch (Exception ex){
+                } else {
                     name1 = "Player 1";
                     name2 = "Player 2";
                 }
@@ -31,7 +31,7 @@ public class TicTacToeMenu extends JFrame {
                 if (themes.getSelectedIndex() == 0){
                     BasicTheme basic = new BasicTheme(name1, name2);
                     basic.setVisible(true);
-                } else { //mga decorators or mga naay theme
+                } else {
                     switch (themes.getSelectedIndex()){
                         case 1:
                             break;
